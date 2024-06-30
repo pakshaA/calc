@@ -1,0 +1,7 @@
+.buttons-wrapper {
+  width: 100%;
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}

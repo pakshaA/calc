@@ -1,0 +1,24 @@
+.top-switchers,
+.low-switchers {
+  display: flex;
+  margin-top: 20px;
+  flex-direction: row;
+}
+
+.switcher-container {
+  width: 50%;
+}
+
+.button-container {
+  margin-top: 20px;
+  width: 50%;
+}
+
+.text-switch-container {
+  margin-bottom: 10px;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+}

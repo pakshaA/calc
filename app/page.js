@@ -1,95 +1,72 @@
-import Image from "next/image";
+'use client'
+
+import React from "react";
+import { useState } from "react";
+
 import styles from "./page.module.css";
 
+import { Input } from "./components/input/input";
+import { ButtonContainer } from "./components/button-container/buttonContainer";
+import { HistoryContainer } from "./components/historyContainer/historyContainer";
+import { ClearButton } from "./components/clearButton/clearButton";
+
+import { ClearElement, Clear, CheckBrackets, Default, Calculating } from './math/math'
+
 export default function Home() {
+  const [expr, setExpr] = useState('');
+  const [length, setLength] = useState(0);
+  const [history, setHistory] = useState([]);
+
+  const handleClick = (event) => {
+    let value = event.target.value
+    switch (value) {
+      case 'CE':
+        var _ = ClearElement(expr) //return expression type=string
+        setExpr(_) // set expression
+        break
+      case 'C':
+        var _ = Clear() // return empty expression
+        setExpr(_) // set empty expression
+        break
+      case ')':
+      case '(':
+        var _ = CheckBrackets(expr, value) //return expression with ( ) or without them
+        setExpr(_) // set expression
+        break
+      case '=':
+        var _ = Calculating(expr) //return the answer of the expression
+        setHistory([...history, { exp: expr, res: _ }]) // add the expr and result to the history
+        setExpr('') // clear the input
+        break
+      default:
+        setLength(length + 1) // set input length
+        if (length === 30) {
+          alert('Слишком большое число.')
+          setLength(0)
+          setExpr('') // clear the expression
+          break
+        }
+        var _ = Default(expr, value) //defualt case => return the expression with the next symbol
+        setExpr(_) // set expression
+        break
+    }
+  }
+
+  const clearHistory = () => {
+    setHistory([]) // clear the history
+    setExpr('') // clear the expression
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    <main className={styles['main']}>
+      <Input val={expr} />
+      <ButtonContainer onClick={handleClick} />
+      {history.length > 0 && (
+        <HistoryContainer history={history} />
+      )}
+      {history.length > 0 && (
+        <ClearButton onClick={clearHistory} />
+      )}
     </main>
   );
 }
