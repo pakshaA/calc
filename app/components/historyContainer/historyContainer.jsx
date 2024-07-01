@@ -2,6 +2,7 @@ import style from './historyContainer.module.css';
 
 export function HistoryContainer({ history }) {
     const formatResult = (result) => {
+      console.log(result);
         if (result === Infinity) {
           return 'Деление на 0';
         } else if (result === "Закрыты не все скобки") {
@@ -13,6 +14,7 @@ export function HistoryContainer({ history }) {
         } else {
           return +result;
         }
+        
       };
   return (
     <div className={style['container']}>
@@ -30,7 +32,7 @@ export function HistoryContainer({ history }) {
             {item.exp}
           </div>
           <div className={style['result']}>
-            {formatResult(item.res).toFixed(2)}
+            { typeof formatResult(item.res) === 'number' ? formatResult(item.res).toFixed(2) : formatResult(item.res) }
           </div>
         </div>
       ))}
