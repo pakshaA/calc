@@ -6,7 +6,7 @@ export const RadioGroup = (props) => {
             {
                 props.systems.map(name => (
                     <div key={name}>
-                        <input type="radio" id={name} value={name} name={props.group} className={style['radio-button']}></input>
+                        <input type="radio" id={name} value={name} name={props.group} className={style['radio-button']} onChange={props.onChange}></input>
                         <label htmlFor={name}>{name}</label>
                     </div>
                 ))

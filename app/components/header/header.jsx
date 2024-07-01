@@ -7,6 +7,7 @@ export const Header = () => {
         <div className={style['header-container']}>
             <Link href='/' className={style['header-link']}>Calculator</Link>
             <Link href='/converter' className={style['header-link']}>Converter</Link>
+            <Link href='/progtranslater' className={style['header-link']}>IT converter</Link>
         </div>
     )
 }

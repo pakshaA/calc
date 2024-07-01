@@ -2,7 +2,6 @@ import style from './historyContainer.module.css';
 
 export function HistoryContainer({ history }) {
     const formatResult = (result) => {
-      console.log(result);
         if (result === Infinity) {
           return 'Деление на 0';
         } else if (result === "Закрыты не все скобки") {

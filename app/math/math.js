@@ -61,6 +61,7 @@ const Default = (expression, value) => {
 
 const Calculating = (expression) => {
     var result = parsing(expression)
+    isDot = false
     return result
 }
 

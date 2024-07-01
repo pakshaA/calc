@@ -17,7 +17,7 @@ export function SwitchersContainer() {
 
 
     const options = ['Values', 'Crypto'];
-    const values = ["RUB", "EUR", "USD", "CNY"];
+    const values = ["RUB", "EUR", "USD"];
     const crypto = ["BTC", "ETH", "DOGE"];
 
 
